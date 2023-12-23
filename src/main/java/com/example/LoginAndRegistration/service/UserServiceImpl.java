@@ -1,6 +1,6 @@
 package com.example.LoginAndRegistration.service;
 
-import com.example.LoginAndRegistration.Entity.User;
+import com.example.LoginAndRegistration.entity.User;
 import com.example.LoginAndRegistration.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,10 +21,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String saveUser(User userModel) {
-        User user=new User();
-        user.setUserName(userModel.getUserName());
-        user.setPassword(passwordEncoder.encode(userModel.getPassword()));
-        userRepo.save(user);
+        userModel.setPassword(passwordEncoder.encode(userModel.getPassword()));
+        userRepo.save(userModel);
         return "Success";
     }
 }

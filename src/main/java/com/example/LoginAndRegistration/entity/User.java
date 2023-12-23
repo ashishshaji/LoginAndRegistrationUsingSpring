@@ -1,9 +1,7 @@
-package com.example.LoginAndRegistration.Entity;
+package com.example.LoginAndRegistration.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,8 +15,14 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Long id;
 
+    @Column(nullable = false, unique=true)
     private  String userName;
 
+    @Column(nullable=false)
     private  String password;
+
+    @Email
+    @Column(nullable = false, unique=true)
+    private String email;
 
 }

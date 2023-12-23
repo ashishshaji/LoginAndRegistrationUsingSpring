@@ -12,10 +12,17 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
+
+//    @Autowired
+//    private UserDetailsService userDetailsService;
     private static final String[] WHITE_LIST_URLS = {
             "/",
+            "/signup",
+            "/user",
             "/register",
-            "/user"
+            "/login",
+            "/register/**",
+            "/index"
 
 
     };
@@ -30,8 +37,14 @@ public class WebSecurityConfig {
                 .and()
                 .csrf()
                 .disable()
-                .authorizeHttpRequests().requestMatchers(WHITE_LIST_URLS)
-                .permitAll();
+                .authorizeHttpRequests((authorize) ->authorize.requestMatchers(WHITE_LIST_URLS).permitAll())
+                .formLogin( form -> form
+                        .loginPage("/login")
+                        .loginProcessingUrl("/login")
+                        .defaultSuccessUrl("/users")
+                        .permitAll()
+                );
+
 
 
         return http.build();

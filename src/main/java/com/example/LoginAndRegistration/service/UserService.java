@@ -1,6 +1,6 @@
 package com.example.LoginAndRegistration.service;
 
-import com.example.LoginAndRegistration.Entity.User;
+import com.example.LoginAndRegistration.entity.User;
 
 import java.util.List;
 
