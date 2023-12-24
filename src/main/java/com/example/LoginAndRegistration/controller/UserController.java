@@ -65,9 +65,10 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    public String listRegisteredUsers(){
-//        List<UserDto> users = userService.findAllUsers();
-//        model.addAttribute("users", user);
+    public String listRegisteredUsers(Model model){
+        List<User> users = userService.fetchAllUsers();
+        // model.addAttribute is related to thymeleaf, which is required to render templates correctly
+        model.addAttribute("users", users);
         return "users";
     }
 
