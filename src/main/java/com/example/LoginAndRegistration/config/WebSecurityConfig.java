@@ -20,8 +20,6 @@ public class WebSecurityConfig {
     private UserDetailsService userDetailsService;
     private static final String[] WHITE_LIST_URLS = {
             "/",
-            "/signup",
-            "/users",
             "/register",
             "/login",
             "/register/**",
