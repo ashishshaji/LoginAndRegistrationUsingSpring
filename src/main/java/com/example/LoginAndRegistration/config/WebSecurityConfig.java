@@ -21,9 +21,9 @@ public class WebSecurityConfig {
     private static final String[] WHITE_LIST_URLS = {
             "/",
             "/register",
-            "/login",
             "/register/**",
-            "/index"
+            "/index",
+
 
 
     };
@@ -38,7 +38,10 @@ public class WebSecurityConfig {
                 .and()
                 .csrf()
                 .disable()
-                .authorizeHttpRequests((authorize) ->authorize.requestMatchers(WHITE_LIST_URLS).permitAll())
+                .authorizeHttpRequests((authorize) -> {
+                    authorize.requestMatchers(WHITE_LIST_URLS).permitAll();
+                    authorize.anyRequest().authenticated();
+                })
                 .formLogin( form -> form
                         .loginPage("/login")
                         .loginProcessingUrl("/login")
