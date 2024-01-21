@@ -23,9 +23,6 @@ public class WebSecurityConfig {
             "/register",
             "/register/**",
             "/index",
-
-
-
     };
     @Bean
     public PasswordEncoder passwordEncoder(){
@@ -48,8 +45,6 @@ public class WebSecurityConfig {
                         .defaultSuccessUrl("/users")
                         .permitAll()
                 );
-
-
 
         return http.build();
     }

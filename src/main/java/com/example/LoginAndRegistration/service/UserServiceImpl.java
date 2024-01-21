@@ -1,5 +1,6 @@
 package com.example.LoginAndRegistration.service;
 
+import com.example.LoginAndRegistration.dto.UserDto;
 import com.example.LoginAndRegistration.entity.User;
 import com.example.LoginAndRegistration.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +21,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String saveUser(User userModel) {
-        userModel.setPassword(passwordEncoder.encode(userModel.getPassword()));
-        userRepo.save(userModel);
+    public String saveUser(UserDto userDto) {
+        if(userRepo.findByEmail(userDto.getEmail())!=null) return "user already exists";
+        User user =new User();
+        user.setUserName(userDto.getUserName());
+        user.setEmail(userDto.getEmail());
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        userRepo.save(user);
         return "Success";
     }
 }

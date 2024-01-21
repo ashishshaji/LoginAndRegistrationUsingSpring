@@ -22,7 +22,7 @@
 <br />
 <div class="container">
     <div class="row">
-        <div class="col-md-6 offset-md-3">
+        <div class="col-md-6 col-sm-8 col-xs-8 mx-auto">
             <div th:if="${param.error}">
                 <div class="alert alert-danger">Invalid Email and Password.</div>
             </div>
@@ -39,6 +39,7 @@
                             th:action="@{/login}"
                             class="form-horizontal"
                             role="form"
+
                     >
                         <div class="mb-3">
                             <label for="username" class="control-label">Email *</label>
@@ -47,6 +48,7 @@
                                    name="username"
                                    class="form-control"
                                    placeholder="Email"
+                                   required
                             />
                         </div>
 
@@ -57,6 +59,7 @@
                                    name="password"
                                    class="form-control"
                                    placeholder="Password"
+                                   required
                             />
                         </div>
 

@@ -28,7 +28,7 @@
 </nav>
 <br /><br /><br />
 <div class="container">
-    <div class="row col-md-8 offset-md-2">
+    <div class="col-md-6 col-sm-12 mx-auto ">
         <div class="card">
             <div class="card-header">
                 <h2 class="text-center">Registration</h2>
@@ -39,34 +39,56 @@
                 </div>
             </div>
             <div class="card-body">
-                <form  th:action="@{/register/save}" method="post" th:object="${user}">
+                <form th:action="@{/register/save}" method="post" th:object="${user}">
                     </br>
 
                     <div class="form-group mb-3">
                         <label>User Name:</label>
-                        <input class="form-control" type="text" th:field="*{userName}" required/>
-                        <p th:errors="*{userName}" class="text-danger"
-                           th:if="${#fields.hasErrors('userName')}">
-                        </p>
+                        <input class="form-control" type="text" th:field="*{userName}" placeholder="Enter User Name" required/>
+                        <p th:errors="*{userName}" class="text-danger" th:if="${#fields.hasErrors('userName')}"></p>
                     </div>
                     <div class="form-group mb-3">
                         <label>E-mail:</label>
-                        <input  class="form-control" type="text" th:field="*{email}" required/>
+                        <input class="form-control" type="email" id="email" name="email"
+                               pattern="^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"
+                               placeholder="Email" th:field="*{email}"  required/>
+                        <p th:if="${#fields.hasErrors('email')}" th:errorclass="error"   th:errors="*{email}"></p>
                     </div>
                     <div class="form-group mb-3">
                         <label>Password:</label>
-                        <input   class="form-control" type="password" th:field="*{password}" required /><br/>
+                        <input class="form-control" type="password" id ="password"
+                               th:field="*{password}"  placeholder="Password" required />
                     </div>
-
                     <div class="form-group mb-3">
-                        <button class="btn btn-primary" type="submit">Register</button>
-                        <span>Already registered? <a href="/" th:href="@{/login}">Login
-                             here</a></span>
+                        <label>confirm Password:</label>
+                        <input class="form-control" type="password"
+                               id="confirmPassword"
+                               th:field="*{confirmPassword}" placeholder="Confirm Password" required />
+                        <span id="passwordMatchError" style="color: red;"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <button class="btn btn-primary " type="submit">Register</button>
+                        <span class="p-2">Already registered? <a href="/" th:href="@{/login}">Login here</a></span>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+<script>
+    document.getElementById('confirmPassword').addEventListener('input', function () {
+        var password = document.getElementById('password').value;
+        var confirmPassword = this.value;
+        var errorSpan = document.getElementById('passwordMatchError');
+
+        if (password === confirmPassword) {
+            errorSpan.textContent = 'Passwords match!';
+            errorSpan.style.color = 'green';
+        } else {
+            errorSpan.textContent = 'Passwords do not match';
+            errorSpan.style.color = 'red';
+        }
+    });
+</script>
 </body>
 </html>

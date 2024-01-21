@@ -1,5 +1,6 @@
 package com.example.LoginAndRegistration.controller;
 
+import com.example.LoginAndRegistration.dto.UserDto;
 import com.example.LoginAndRegistration.entity.User;
 import com.example.LoginAndRegistration.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -31,8 +32,8 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public String saveUser(@RequestBody User userModel,final HttpServletRequest request ){
-        return userService.saveUser(userModel);
+    public String saveUser(@RequestBody UserDto userDto,final HttpServletRequest request ){
+        return userService.saveUser(userDto);
 
     }
 
@@ -40,7 +41,7 @@ public class UserController {
     @GetMapping("/register")
     public String showRegistrationForm(Model model){
 
-        User user = new User();
+        UserDto user = new UserDto();
 
         model.addAttribute("user", user);
 
@@ -48,12 +49,12 @@ public class UserController {
     }
 
     @PostMapping("/register/save")
-    public String registration(@Valid @ModelAttribute("user") User user,
+    public String registration(@Valid @ModelAttribute("user") UserDto userDto,
                                BindingResult result,
                                Model model){
 
-        userService.saveUser(user);
-        return "redirect:/register?success";
+        if(userService.saveUser(userDto).equals("Success"))  return "redirect:/register?success";
+        return "redirect:/welcome";
 
     }
 
