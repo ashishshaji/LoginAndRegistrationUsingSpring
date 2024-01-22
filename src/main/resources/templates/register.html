@@ -38,6 +38,11 @@
                     You have successfully registered our app!
                 </div>
             </div>
+            <div th:if="${param.fail}">
+                <div class="alert alert-danger">
+                    This email address is already associated with another account, try with another one!
+                </div>
+            </div>
             <div class="card-body">
                 <form th:action="@{/register/save}" method="post" th:object="${user}">
                     </br>
